@@ -18,15 +18,20 @@ app.get('/',(req,res)=>{
     
   })
 //console.time('Time')
-cron.schedule('30 15 * * *', () => {
+cron.schedule('30 15 * * *', () => { //gmt// li hiya 16:30 dyalna
   GetData();
   console.log("testing")
 });
-let datenow = '20';
+let datenow = '20'; // just put your date before 16:30 (gmt+1) otherwise just put tomorrow's date
 
  //GetData();
 
-
+function GetTomorrowDate(){
+  const today = new Date()
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  return ("0" + tomorrow.getDate()).slice(-2);
+ }
 
 async function GetTableData(selector ,obj,$ ){
   $(selector).each((index, element) => {
@@ -40,20 +45,19 @@ async function GetTableData(selector ,obj,$ ){
 async function GetData(){
   request("https://covid.hespress.com/fr",(error,response,html)=>{
          const $ = cheerio.load(html)
-              
-              
+
           let Date = $('div.col-9 > span').text()
           
-          if(datenow != Date.replace( /^\D+/g, '').slice(0,2) ){
+          if(datenow !== Date.replace( /^\D+/g, '').slice(0,2) ){
             setTimeout(()=>{
               GetData()
               console.log("ourdate makatsawich date dyal getdata")
             },10000)
-      
               return ;
           }
-          datenow = Date.replace( /^\D+/g, '').slice(0,2)
           
+          datenow = GetTomorrowDate();
+         
 
           let Doses = $('body > div > div.row > div:nth-child(3) > div > div > h4').text().replace(/^\s*\n/gm,'').trim().split('\n')
             let NewCases = Number($('div.col-3.text-right > span').text())
