@@ -24,7 +24,7 @@ cron.schedule('30 15 * * *', () => { //gmt// li hiya 16:30 dyalna
 });
 let datenow = '21'; // just put your date before 16:30 (gmt+1) otherwise just put tomorrow's date
 
- GetData();
+ //GetData();
 
 function GetTomorrowDate(){
   const today = new Date()
