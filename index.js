@@ -17,14 +17,19 @@ app.get('/',(req,res)=>{
   res.sendFile(path.join(__dirname, 'data.json'));
     
   })
-//console.time('Time')
+//console.time('Time') 30 // 15 
 cron.schedule('30 15 * * *', () => { //gmt// li hiya 16:30 dyalna
-  GetData();
+  let dataenow  = GetTodayDate()
+  GetData(datenow);
   console.log("testing")
 });
-let datenow = '21'; // just put your date before 16:30 (gmt+1) otherwise just put tomorrow's date
+
 
  //GetData();
+ function GetTodayDate(){
+   let date_ob = new Date();
+   return ("0" + date_ob.getDate()).slice(-2)
+ }
 
 function GetTomorrowDate(){
   const today = new Date()
@@ -42,7 +47,7 @@ async function GetTableData(selector ,obj,$ ){
 
 }
 
-async function GetData(){
+async function GetData(datenow){
   request("https://covid.hespress.com/fr",(error,response,html)=>{
          const $ = cheerio.load(html)
 
