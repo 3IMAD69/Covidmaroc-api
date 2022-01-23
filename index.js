@@ -25,18 +25,13 @@ cron.schedule('30 15 * * *', () => { //gmt// li hiya 16:30 dyalna
 });
 
 
- //GetData();
+ //GetData(GetTodayDate());
  function GetTodayDate(){
    let date_ob = new Date();
    return ("0" + date_ob.getDate()).slice(-2)
  }
 
-function GetTomorrowDate(){
-  const today = new Date()
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  return ("0" + tomorrow.getDate()).slice(-2);
- }
+
 
 async function GetTableData(selector ,obj,$ ){
   $(selector).each((index, element) => {
@@ -55,13 +50,13 @@ async function GetData(datenow){
           
           if(datenow !== Date.replace( /^\D+/g, '').slice(0,2) ){
             setTimeout(()=>{
-              GetData()
+              GetData(datenow)
               console.log("ourdate makatsawich date dyal getdata")
             },10000)
               return ;
           }
           
-          datenow = GetTomorrowDate();
+          
          
 
           let Doses = $('body > div > div.row > div:nth-child(3) > div > div > h4').text().replace(/^\s*\n/gm,'').trim().split('\n')
