@@ -17,11 +17,15 @@ app.get('/',(req,res)=>{
   res.sendFile(path.join(__dirname, 'data.json'));
     
   })
-//console.time('Time') 30 // 15 
-cron.schedule('30 15 * * *', () => { //gmt// li hiya 16:30 dyalna
-  let dataenow  = GetTodayDate()
+//console.time('Time') 30 // 16 
+cron.schedule('20 16 * * *', () => { //gmt// li hiya 16:20 dyalna
+  let date_ob = new Date();
+  let datenow = ("0" + date_ob.getDate()).slice(-2)
   GetData(datenow);
   console.log("testing")
+},{
+  scheduled: true,
+  timezone: "Africa/Casablanca"
 });
 
 
