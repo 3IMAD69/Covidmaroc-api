@@ -18,7 +18,7 @@ app.get('/',(req,res)=>{
     
   })
 //console.time('Time') 30 // 16 
-cron.schedule('20 16 * * *', () => { //gmt// li hiya 16:20 dyalna
+cron.schedule('20 16 * * *', () => { 
   let date_ob = new Date();
   let datenow = ("0" + date_ob.getDate()).slice(-2)
   GetData(datenow);
