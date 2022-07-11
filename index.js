@@ -29,7 +29,7 @@ cron.schedule('20 16 * * *', () => {
 });
 
 
- //GetData(GetTodayDate());
+ GetData(GetTodayDate());
  function GetTodayDate(){
    let date_ob = new Date();
    return ("0" + date_ob.getDate()).slice(-2)
@@ -63,7 +63,8 @@ async function GetData(datenow){
           
          
 
-          let Doses = $('body > div > div.row > div:nth-child(3) > div > div > h4').text().replace(/^\s*\n/gm,'').trim().split('\n')
+    //       let Doses = $('body > div > div.row > div:nth-child(3) > div > div > h4').text().replace(/^\s*\n/gm,'').trim().split('\n')
+    // console.log(Doses)
             let NewCases = Number($('div.col-3.text-right > span').text())
             let TotalCasesConfirmed = Number($('div:nth-child(4) > div > div.card-body.pb-2 > div > div.col-7.text-right > h4').text());
             let DeathCases = Number($('div.col-8.text-right > span').text())
@@ -78,13 +79,14 @@ async function GetData(datenow){
              /*console.log(NewCases+"\n"+TotalCasesConfirmed+"\n"+DeathCases+"\n"+TotalDeathCases+"\n"+Recovery+"\n"+TotalRecovery+"\n"+CaseRecoveryRates+"\n"+CaseFatalityRate
             +"\n"+ ActiveCases+"\n"+Test24h+"\n"+TotalTest  )*/
               
-            for(i=0;i<3;i++){
-              Doses[i] = Number(Doses[i].slice(9).replace(/\s/g,''))
-            }
+            // for(i=0;i<3;i++){
+            //   Doses[i] = Number(Doses[i].slice(9).replace(/\s/g,''))
+            // }
             
             
             let obj = {Cases : {NewCases : NewCases, TotalCasesConfirmed:TotalCasesConfirmed} , Deaths :{NewDeathCases : DeathCases , TotalDeaths : TotalDeathCases } , RecoveryCases : {NewRecovery : Recovery  , TotalRecovered : TotalRecovery},
-           Doses : {Dose1 :Doses[0] ,Dose2 : Doses[1],Dose3 : Doses[2] }, Tests : {Test24h : Test24h,TotalTest:TotalTest } , ActiveCases:ActiveCases ,
+           // Doses : {Dose1 :Doses[0] ,Dose2 : Doses[1],Dose3 : Doses[2] },
+  Tests : {Test24h : Test24h,TotalTest:TotalTest } , ActiveCases:ActiveCases ,
           CaseFatalityRate : CaseFatalityRate , CaseRecoveryRates:CaseRecoveryRates , Region :{},City:{}}
            
            //add Region data
